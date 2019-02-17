@@ -1,0 +1,9 @@
+---
+layout: post
+title:  "Dummy Post"
+date:   2019-02-11
+author: Brian Jackson
+categories: Info
+---
+
+Trying this out
