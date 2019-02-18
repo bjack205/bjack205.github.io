@@ -13,7 +13,7 @@ exclude:
 
 # Site settings
 title: Brian E. Jackson
-subtitle: "Engineer. Roboticist."
+subtitle: "PhD Student at Stanford University. \nEngineer. Roboticist."
 email: bjack205@gmail.com
 name: Brian E. Jackson
 description: >
@@ -81,17 +81,17 @@ descriptions:
 social:
   - name: Twitter
     icon: twitter
-    username: TheBenCentra
-    url: https://twitter.com/TheBenCentra
+    username: 
+    url: 
     desc: Follow me on Twitter
     share: false
 
   - name: Facebook
     icon: facebook
-    username: thebencentra
+    username: bjack205
     url:
     desc: Friend me on Facebook
-    share: false
+    share: true
 
   - name: GitHub
     icon: github
@@ -103,7 +103,7 @@ social:
   - name: LinkedIn
     icon: linkedin
     username: Brian Jackson
-    url: https://www.linkedin.com/brian-e-jackson
+    url: https://www.linkedin.com/in/brian-e-jackson
     desc: Connect with me on LinkedIn
     share: true
 
@@ -133,7 +133,7 @@ social:
     username:
     url:
     desc: Follow me on Pinterest
-    share: true
+    share: false
 
   - name: SoundCloud
     icon: soundcloud
@@ -182,7 +182,7 @@ social:
     username:
     url:
     desc: Share to Reddit
-    share: true
+    share: false
 
   - name: "Hacker News"
     icon: hacker-news
