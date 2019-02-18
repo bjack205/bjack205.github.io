@@ -51,11 +51,17 @@ jekyll-archives:
 
 # Category descriptions (for archive pages)
 descriptions:
-  - cat: jekyll
-    desc: "Posts describing Jekyll setup techniques."
+  - cat: events
+    desc: "Thoughts about my professional experiences"
 
-  - cat: dummy
-    desc: "Just some placeholder posts, lorem ipsum and the rest."
+  - cat: projects
+    desc: "Description of projects I've worked on"
+
+  - cat: info
+    desc: "Useful information about things I've learned that I think others should know too!"
+
+  - cat: personal
+    desc: "Some more personal posts about things happening in my personal life I think are relevant to my professional life"
 
 # Social icons and sharing options
 #

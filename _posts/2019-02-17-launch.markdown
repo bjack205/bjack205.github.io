@@ -1,0 +1,10 @@
+---
+layout: post
+title:  "Website Launch"
+date:   2019-02-17
+author: Brian Jackson
+categories: events
+---
+
+Finally got around to launching my personal website! A big thanks to Ben Centra for the great [theme](https://github.com/bencentra/centrarium).
+
