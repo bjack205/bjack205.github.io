@@ -10,14 +10,16 @@ gems:
 
 exclude:
   - "/vendor/"
+  - "typography.html"
 
 # Site settings
 title: Brian E. Jackson
-subtitle: "PhD Student at Stanford University. \nEngineer. Roboticist."
+subtitle: "PhD Student at Stanford University. Engineer. Roboticist."
 email: bjack205@gmail.com
 name: Brian E. Jackson
 description: >
   Brian E. Jackson's personal website.
+
 # Base URL of site (i.e. /blog). It should always start with a slash,
 # and never end with a slash. Set it to a blank value if hosting at the
 # root of your server.
