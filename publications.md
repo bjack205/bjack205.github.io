@@ -1,7 +1,7 @@
 ---
 layout: page
 title: Publications 
-permalink: /about/
+permalink: /publications/
 ---
 
 # Tutorials and Notes
