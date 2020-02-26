@@ -1,0 +1,21 @@
+---
+layout: page 
+title: Publications
+---
+
+{% assign prev_year = 1000 %}
+{% assign pubs = site.data.pubs | sort: "date" | reverse %}
+<table width=250 class="table">
+    <col width="50">
+    <col width="200">
+    <tbody>
+        {% for pub in pubs %}
+            {% include pub_entry.html pub=pub prev_year=prev_year%}
+        {% endfor %}
+    </tbody>
+</table>
+
+<h2> Other Publications </h2>
+<ul> 
+    <li> <a href={{ "/papers/AL_iLQR_Tutorial.pdf" | relative_url }}> AL-iLQR Tutorial </li>
+</ul>

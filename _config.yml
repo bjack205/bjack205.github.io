@@ -193,6 +193,20 @@ social:
     desc: Share to Hacker News
     share: false
 
+# Navigation bar links.
+navigation:
+  - title: Home
+    link: /
+  - title: About
+    link: /about.md
+  - title: Publications
+    link: /publications.html
+  - title: Posts
+    link: /posts.html
+  - title: CV
+    link: /assets/CV.pdf
+
+
 # Social sharing protocols
 # These are for automatically generating sharing metadata for FB and Twitter
 # OS Protocol is for sharing the source of your site, if you're interested. For more, see osprotocol.com

@@ -1,0 +1,57 @@
+- title: Scalable Cooperative Transport of Cable-Suspended Loads with UAV's using Distributed Trajectory Optimization
+  authors: [brian, taylor, Kunal Shah, Mac Schwager, zac]
+  date: 2020-05-31
+  pub-type: conference
+  publisher: International Conference on Robotics and Automation
+  abbrv: ICRA
+  venue: Paris, France
+  pdf: distributed_quads.pdf
+  projects: [multirobot,trajopt]
+
+- title: Planning and Control with Attitude
+  authors: [brian, zac]
+  date: 2020-06-15
+  pub-type: conference
+  publisher: Workshop on the Algorithmic Foundations of Robotics
+  abbrv: WAFR
+  venue: Oulu, Finland
+  pdf: planning_with_attitude.pdf
+  projects: [trajopt]
+  status: Submitted
+  
+- title: "ALTRO: A Fast Solver for Constrained Trajectory Optimization"
+  authors: [taylor, brian, zac]
+  date: 2019-11-03
+  pub-type: conference
+  publisher: International Conference on Intelligent Robots and Systems
+  abbrv: IROS
+  venue: Macao, China
+  pdf: altro-iros.pdf 
+  projects: [trajopt]
+  
+- title: Comparison of dislocation characterization by electron channeling contrast imaging and cross-correlation electron backscattered diffraction
+  authors: [Brent E. Dunlap, Timothy J. Ruggles, David T. Fullwood, brian, Martin A. Crimp]
+  date: 2018-01-01
+  pub-type: article 
+  publisher: Ultramicroscopy 184
+  pdf: pseudosymmetry.pdf
+
+- title: Resolving pseudosymmetry in gamma-TiAl using cross-correlation electron backscatter diffraction with dynamically simulated reference patterns
+  authors: [brian, David Fullwood, Jordan Christensen, Stuart Wright]
+  pub-type: article
+  date: 2018-06-01
+  publisher: Journal of Applied Crystallography 51(3)
+
+- title: Influence of Noise-Generating Factors on Cross-Correlation Electron Backscatter Diffraction (EBSD) Measurement of Geometrically Necessary Dislocations (GNDs)
+  authors: [Landon Hanson, brian, David Fullwood, Stuart Wright, Marc De Graef, Eric Homer, Robert Wagoner]
+  date: 2017-06-01
+  pub-type: article
+  publisher: Microscopy and Microanalysis 23(3)
+
+- title: Performance of Dynamically Simulated Reference Patterns for Cross-Correlation Electron Backscatter Diffraction
+  authors: [brian, Jordan Christensen, Saransh Singh, Marc De Graef, David Fullwood, Eric Homer, Robert H Wagoner]
+  date: 2016-08-01
+  pub-type: article
+  publisher: Microscopy and Microanalysis 22(4)
+  pdf: dynamically_simulated_EBSD.pdf
+
