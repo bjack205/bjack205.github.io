@@ -8,11 +8,11 @@ zac:
 
 taylor:
     display_name: "Taylor Howell"
-    webpage: "thowell.github.io"
+    webpage: "https://thowell.github.io"
     github: thowell
-    role: phd 
+    role: phd
     image: /img/people/taylor.jpg
-    bio: Optimization through contact
+    bio: Robust feedback motion planning and optimization through contact
 
 brian:
     display_name: "Brian Jackson"
@@ -20,21 +20,21 @@ brian:
     github: bjack205
     role: phd
     image: /img/people/brian.jpg
-    bio: Real-time motion planning 
+    bio: Real-time motion planning
 
 max:
     display_name: "Max Holliday"
     webpage: "https://github.com/maholli"
     github: maholli
-    role: phd 
+    role: phd
     image: /img/people/max.jpg
-    bio: Space-resilient hardware 
+    bio: Space-resilient hardware
 
 simon:
     display_name: "Simon Le Cleac'h"
-    webpage: "https://www.linkedin.com/in/simon-lc/"
+    webpage: "https://simon-lc.github.io/"
     github: simon-lc
-    role: phd 
+    role: phd
     image: /img/people/simon.jpg
     bio: Optimizing game-theoretic interactions
 
@@ -42,22 +42,22 @@ andrew:
     display_name: "Andrew Gatherer"
     webpage: "https://www.linkedin.com/in/andrew-gatherer-72211862/"
     github: GathererA
-    role: phd 
+    role: alum
     image: /img/people/andrew.jpg
-    bio: Improving small-satellites 
+    bio: Improving small-satellites
 
 jan:
     display_name: "Jan Bruedigam"
-    webpage: "https://www.linkedin.com/in/janbruedigam"
+    webpage: "https://www.ei.tum.de/en/itr/bruedigam/"
     github: janbruedigam
-    role: masters 
+    role: alum
     image: /img/people/jan.jpg
-    bio: Modernizing physics engines 
+    bio: Modernizing physics engines
 
 laura:
     display_name: "Laura Lee"
     webpage: "https://www.linkedin.com/in/lauraleeane/"
-    role: masters 
+    role: alum
     image: /img/people/laura.jpg
     bio: Master's Student
 
@@ -73,7 +73,7 @@ tarun:
     webpage: "https://punnoo.se/"
     role: ugrad
     image: /img/people/tarun.jpg
-    bio: Undergraduate Student 
+    bio: Undergraduate Student
 
 aaron:
     display_name: "Aaron Schultz"
@@ -84,11 +84,27 @@ aaron:
 
 remy:
     display_name: "Remy Derollez"
-    webpage: "https://www.linkedin.com/in/r%C3%A9my-derollez-43a60912b/"
+    webpage: "https://www.linkedin.com/in/derollez-remy/"
     github: Derollez
-    role: masters 
+    role: alum
     image: /img/people/remy.jpg
-    bio: Robust motion planning 
+    bio: Robust Motion Planning and Optimization for Space
+
+jared:
+    display_name: "Jared Blanchard"
+    webpage: "https://jaredblanchard.com"
+    github: jared711
+    role: masters
+    image: /img/people/jared.jpg
+    bio: Optimizing Spacecraft Trajectories
+
+kevin:
+    display_name: "Kevin Tracy"
+    webpage: "https://www.linkedin.com/in/kevin-tracy/"
+    github: kevintracy7
+    role: phd
+    image: /img/people/kevin.jpg
+    bio: Spacecraft dynamics
 
 # grad-a:
 #     display_name: "Grad A"

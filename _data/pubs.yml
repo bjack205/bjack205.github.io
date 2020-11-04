@@ -1,3 +1,23 @@
+- title: "ALTRO-C: A Fast Solver for Conic Model-Predictive Control"
+  authors: [brian, tarun, Daniel Neamati, kevin, Rianna Jitosho, zac]
+  date: 2021-05-30
+  pub-type: conference
+  publisher: International Conference on Robotics and Automation
+  abbrv: ICRA 
+  pdf: ALTRO_MPC.pdf
+  projects: [trajopt]
+  status: Submitted
+
+- title: Planning and Control with Attitude
+  authors: [brian, kevin, zac]
+  date: 2021-05-30
+  pub-type: conference
+  publisher: International Conference on Robotics and Automation
+  abbrv: ICRA 
+  pdf: planning_with_attitude.pdf
+  projects: [trajopt]
+  status: Submitted
+  
 - title: Scalable Cooperative Transport of Cable-Suspended Loads with UAV's using Distributed Trajectory Optimization
   authors: [brian, taylor, Kunal Shah, Mac Schwager, zac]
   date: 2020-05-31
@@ -8,17 +28,6 @@
   pdf: distributed_quads.pdf
   projects: [multirobot,trajopt]
 
-- title: Planning and Control with Attitude
-  authors: [brian, zac]
-  date: 2020-06-15
-  pub-type: conference
-  publisher: Workshop on the Algorithmic Foundations of Robotics
-  abbrv: WAFR
-  venue: Oulu, Finland
-  pdf: planning_with_attitude.pdf
-  projects: [trajopt]
-  status: Submitted
-  
 - title: "ALTRO: A Fast Solver for Constrained Trajectory Optimization"
   authors: [taylor, brian, zac]
   date: 2019-11-03
