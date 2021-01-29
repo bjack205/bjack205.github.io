@@ -10,7 +10,7 @@ Mechanical engineer, student, researcher, aspiring roboticist, and avid hiker, I
 
 I started my research with Dr. Manchester at Stanford University, where I had the privelage of collaborating with and learning from  some of the brightest scholars in robotics and optimization. My Master's coursework at Stanford focused on automatic control, optimization, robotics, and some machine learning. 
 
-As an undergraduate student in Mechanical Engineering at Brigham Young University, my research in computational methods for characterizing the microstructure of materials inspired me to pursue a career in research, while my classes in computer science, robotics, and work on the BYU Mars Rover Team helped me find my passion for robotics. I am excited to build upon these experiences as a PhD student at Stanford.
+As an undergraduate student in Mechanical Engineering at Brigham Young University, my research in computational methods for characterizing the microstructure of materials inspired me to pursue a career in research, while my classes in computer science, robotics, and work on the BYU Mars Rover Team helped me find my passion for robotics. I am excited to build upon these experiences as a PhD student at Stanford and now Carnegie Mellon Universities.
 
 # Awards
 * NSF Graduate Research Fellowship
