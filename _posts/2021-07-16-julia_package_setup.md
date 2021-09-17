@@ -8,15 +8,22 @@ tags: robotics cmu julia
 ---
 
 ## Objective
-The objective of this post is to provide a detailed and easy-to-follow guide for setting up a new package in Julia, complete with continuous integration, code coverage, and documentation.
-At the end I will also provide some workflow tips for newcomers to Julia. This tutorial uses both GitHub and VSCode, and several steps are unique to these tools. If you use different tools, feel free to ignore these steps and adapt them to the tooling of your choice. 
+The objective of this post is to provide a detailed and easy-to-follow guide for
+setting up a new package in Julia, complete with continuous integration, code
+coverage, and documentation.  At the end I will also provide some workflow tips
+for newcomers to Julia. This tutorial uses both GitHub and VSCode, and several
+steps are unique to these tools. If you use different tools, feel free to ignore
+these steps and adapt them to the tooling of your choice. 
 
-For the duration of this tutorial we'll be working with a hypothetical new package called `NewPackage.jl`.
+For the duration of this tutorial we'll be working with a hypothetical new
+package called `NewPackage.jl`.
 
 ## Part I: Setting up a New Repository
 
 ### Step 1: Create a new temporary repo on your computer
-In your terminal, go to a convenient location where you can create a temporary local directory. Open a Julia REPL, enter the package manager using `]`, and enter `generate NewPackage`:
+In your terminal, go to a convenient location where you can create a temporary
+local directory. Open a Julia REPL, enter the package manager using `]`, and
+enter `generate NewPackage`:
 
 !["Generate a new package in the REPL](/assets/julia_tutorials/new_package_generate.png)
 
@@ -29,7 +36,10 @@ Project.toml
 ```
 
 ### Step 2: Create a new GitHub repository
-In GitHub, create a new repository named "NewPackage.jl" (note the trailing .jl extension). Be sure to create an EMPTY repo (don't initialize it with a `README.md`, `.gitignore`, or license file). You should get a screen that looks like the following:
+In GitHub, create a new repository named "NewPackage.jl" (note the trailing .jl
+extension). Be sure to create an EMPTY repo (don't initialize it with a
+`README.md`, `.gitignore`, or license file). You should get a screen that looks
+like the following:
 
 !["New GitHub package"](/assets/julia_tutorials/github_new_package.png)
 
@@ -49,7 +59,9 @@ In GitHub, add a file using "Add File | Create New File", located on the main pa
 
 !["Add new GitHub file"](/assets/julia_tutorials/github_new_file.png)
 
-Add a new `.gitignore` file, and optionally pick a template using the template selector that pops up on the top-right of the edit window once you enter `.gitignore` into the file name field.
+Add a new `.gitignore` file, and optionally pick a template using the template
+selector that pops up on the top-right of the edit window once you enter
+`.gitignore` into the file name field.
 
 The default Julia `.gitignore` is a great place to start, but feel free to edit it as needed:
 ```
@@ -79,37 +91,59 @@ docs/site/
 Manifest.toml
 ```
 
-After editing, commit the file, either directly to the main branch or via a PR (which you should keep open for the next step).
+After editing, commit the file, either directly to the main branch or via a PR
+(which you should keep open for the next step).
 
 ### Step 4: Add a `LICENCE` file
-Again using GitHub, add a new file named `LICENSE` and use the license template selector that appears to pick a license. The MIT License is a good default.
+Again using GitHub, add a new file named `LICENSE` and use the license template
+selector that appears to pick a license. The MIT License is a good default.
 
-Commit the file directly to the main branch, or to the new branch you created for your pull request in the previous step. Then merge your PR (possibly with a squash merge) to add both files.
+Commit the file directly to the main branch, or to the new branch you created
+for your pull request in the previous step. Then merge your PR (possibly with a
+squash merge) to add both files.
 
 ### Step 5: Add the repo to your local `dev` folder
-Back in your Julia REPL, still in the package manager, add your new package to your `~/.julia/dev` folder using the `dev` command in the package manager:
+Back in your Julia REPL, still in the package manager, add your new package to
+your `~/.julia/dev` folder using the `dev` command in the package manager:
 
 !["Dev the new package"](/assets/julia_tutorials/dev_package.png)
 
-This will clone your repo into `~/.julia/dev/NewPackage`, which is on the Julia package search path, so that you can type `using NewPackage` anywhere on your system and it will load your package. You can now delete the original folder we created in our temporary location.
+This will clone your repo into `~/.julia/dev/NewPackage`, which is on the Julia
+package search path, so that you can type `using NewPackage` anywhere on your
+system and it will load your package. You can now delete the original folder we
+created in our temporary location.
 
-While I usually find it helpful to keep all my packages in the `dev` folder, alternatively you could keep the original location and "register" that local location instead of the remote GitHub repo using `dev /path/to/your/repo/NewPackage` instead of the step above. This downside to this approach is that it hard-codes a local path into your Manifest file which makes it non-portable to other users. If you only ever do this for you top-level (default) Julia environment, this is probably fine.
+While I usually find it helpful to keep all my packages in the `dev` folder,
+alternatively you could keep the original location and "register" that local
+location instead of the remote GitHub repo using `dev
+/path/to/your/repo/NewPackage` instead of the step above. This downside to this
+approach is that it hard-codes a local path into your Manifest file which makes
+it non-portable to other users. If you only ever do this for you top-level
+(default) Julia environment, this is probably fine.
 
 ## Part II: Develop your repo
 
 ### Step 6: Setup VSCode for Julia
-Assuming you've installed VSCode, launch VSCode and open the directory containing your new package. Add the [Julia VSCode Extension](https://marketplace.visualstudio.com/items?itemName=julialang.language-julia). I personally like to change the following setting to provide inline results for easy scripting:
+Assuming you've installed VSCode, launch VSCode and open the directory
+containing your new package. Add the [Julia VSCode
+Extension](https://marketplace.visualstudio.com/items?itemName=julialang.language-julia).
+I personally like to change the following setting to provide inline results for
+easy scripting:
 ```json
 "julia.execution.resultType": "inline"
 ```
 
 ### Step 7: Add package dependencies
-To add Julia dependencies to your project, launch the internal VSCode REPL (using the `Julia: Start REPL` command from the command palette), and activate the package environment using `activate .` in the package manager:
+To add Julia dependencies to your project, launch the internal VSCode REPL
+(using the `Julia: Start REPL` command from the command palette), and activate
+the package environment using `activate .` in the package manager:
 
 !["Activate project"](/assets/julia_tutorials/activate_project.png)
 
-Once you've activated the project environment, add packages using the package manager as you would normally. These packages will automatically get added to your `Project.toml` and `Manifest.toml` files. Let's add
-the [StaticArrays](https://github.com/JuliaArrays/StaticArrays.jl) package:
+Once you've activated the project environment, add packages using the package
+manager as you would normally. These packages will automatically get added to
+your `Project.toml` and `Manifest.toml` files. Let's add the
+[StaticArrays](https://github.com/JuliaArrays/StaticArrays.jl) package:
 
 !["Add Static Arrays"](/assets/julia_tutorials/add_static_arrays.png)
 
@@ -148,13 +182,19 @@ or
 ```julia
 import StaticArrays
 ```
-The first option will bring all exported symbols into your package. For a ubiquitous package like StaticArrays, or any of the Julia standard libraries, this is usually nice since most developers are familiar withthe API these packages export.
+The first option will bring all exported symbols into your package. For a
+ubiquitous package like StaticArrays, or any of the Julia standard libraries,
+this is usually nice since most developers are familiar withthe API these
+packages export.
 
-The second option does not import anything from the package, and all commands must be explicitly imported or prefixed with the package name, e.g.
+The second option does not import anything from the package, and all commands
+must be explicitly imported or prefixed with the package name, e.g.
 ```julia
 A = StaticArrays.@SMatrix rand(10,10)
 ```
-Consider using this as the default for external packages so that it's clear to outsiders where the variousmethods you're using come from. For convenience, you can explicitly bring in symbols as needed, e.g.:
+Consider using this as the default for external packages so that it's clear to
+outsiders where the variousmethods you're using come from. For convenience, you
+can explicitly bring in symbols as needed, e.g.:
 ```julia
 using StaticArrays: @SMatrix
 ```
@@ -169,7 +209,9 @@ import StaticArrays as SA
 ```
 
 ### Step 8: Set up test suite 
-Add a new top-level `test` folder to your repo and add a `runtests.jl` file inside. This is the launch point for your test suite and should be included in every Julia package / application that uses a test suite.
+Add a new top-level `test` folder to your repo and add a `runtests.jl` file
+inside. This is the launch point for your test suite and should be included in
+every Julia package / application that uses a test suite.
 
 A basic `runtests.jl` file should look like:
 
@@ -182,10 +224,13 @@ using Test
 include(...)
 ...
 ```
-where the last part simply includes test suites defined in other files within the `test` folder. We'll addone after the next section.
+where the last part simply includes test suites defined in other files within
+the `test` folder. We'll addone after the next section.
 
 ### Step 9: Add test-specific dependencies
-With our `test` directory set up, we now need to add our test-specific dependencies, importantly including the `Test` standard library. Again the in REPL package manager, activate the test folder using `activate test`:
+With our `test` directory set up, we now need to add our test-specific
+dependencies, importantly including the `Test` standard library. Again the in
+REPL package manager, activate the test folder using `activate test`:
 
 !["Activate test folder"](/assets/julia_tutorials/activate_test.png)
 
@@ -250,7 +295,9 @@ Now let's create a test to make sure it works as expected. Create a `test/foo_te
 end
 ```
 
-You can run the test suite locally from the package manager by entering `test NewPackage`. It's usually best to run this command from the default environment (which you can return to using `activate` without any arguments).
+You can run the test suite locally from the package manager by entering `test
+NewPackage`. It's usually best to run this command from the default environment
+(which you can return to using `activate` without any arguments).
 
 If your tests pass, commit your changes to git before continuing.
 
@@ -296,13 +343,26 @@ jobs:
 ```
 **NOTE**: If your branch is named `master` instead of `main`, you'll need to change that in the `on/push/branches` section. 
 
-Commit the file, and push to GitHub. Under the "Actions" tab in GitHub, you should see the CI action start. If you wait a few minutes, you should see your tests pass.
+Commit the file, and push to GitHub. Under the "Actions" tab in GitHub, you
+should see the CI action start. If you wait a few minutes, you should see your
+tests pass.
 
 ### Step 12: Add Code Coverage with CodeCov.io
-It's usually a good idea to get a feel for how much of your code is being covered by your test suite. We can get the reports automatically from our CI we set up in the previous step using [codecov.io](https://about.codecov.io/). If you haven't already, log in using your GitHub account. It should prompt you to set up CodeCov for your personal account and for any organizations you have the appropriate permissions for. 
-After going through the setup process, you should be able to enable CodeCov for your new repo by going to your user settings and selecting the "Applications" menu on the left. You should see CodeCov under the list of Installed GitHub Apps. If you select "Configure" and scroll to the bottom uner "Repository access," you can add your repo there if you haven't enabled it for all repositories by default.
+It's usually a good idea to get a feel for how much of your code is being
+covered by your test suite. We can get the reports automatically from our CI we
+set up in the previous step using [codecov.io](https://about.codecov.io/). If
+you haven't already, log in using your GitHub account. It should prompt you to
+set up CodeCov for your personal account and for any organizations you have the
+appropriate permissions for.  After going through the setup process, you should
+be able to enable CodeCov for your new repo by going to your user settings and
+selecting the "Applications" menu on the left. You should see CodeCov under the
+list of Installed GitHub Apps. If you select "Configure" and scroll to the
+bottom uner "Repository access," you can add your repo there if you haven't
+enabled it for all repositories by default.
 
-After a successful CI run, your coverage results should be automatically uploaded to codecov.io where you can view the report. This app will automatically run checks on each PR and commit to the main branch.
+After a successful CI run, your coverage results should be automatically
+uploaded to codecov.io where you can view the report. This app will
+automatically run checks on each PR and commit to the main branch.
 
 ### Step 13: Add Other Workflows
 The following workflow files are also useful:
@@ -393,23 +453,36 @@ jobs:
               exit(1)
           end'
 ```
-**NOTE**: If your branch is named `master` instead of `main`, you'll need to change that in the `on/push/branches` section. 
+**NOTE**: If your branch is named `master` instead of `main`, you'll need to
+*change that in the `on/push/branches` section. 
 
-The last one is very optional, but useful. You can use the associated [JuliaFormatter](https://github.com/domluna/JuliaFormatter.jl) package and [VSCode extension](https://marketplace.visualstudio.com/items?itemName=singularitti.vscode-julia-formatter) to automatically format your code.
+The last one is very optional, but useful. You can use the associated
+[JuliaFormatter](https://github.com/domluna/JuliaFormatter.jl) package and
+[VSCode
+extension](https://marketplace.visualstudio.com/items?itemName=singularitti.vscode-julia-formatter)
+to automatically format your code.
 
 ## Part IV: Adding Documentation
 ### Step 14: Generate Access Keys
-To allow our code to automatically deploy to GitHub Pages, we need to add some access tokens. We can generate these tokens very easily using [`DocumenterTools.jl`](https://github.com/JuliaDocs/DocumenterTools.jl). Add this package to your default workspace (you can remove it afterwards, if you want), and also bring your package into the REPL with `using NewPackage`:
+To allow our code to automatically deploy to GitHub Pages, we need to add some
+access tokens. We can generate these tokens very easily using
+[`DocumenterTools.jl`](https://github.com/JuliaDocs/DocumenterTools.jl). Add
+this package to your default workspace (you can remove it afterwards, if you
+want), and also bring your package into the REPL with `using NewPackage`:
 
 !["Documenter_tools"](/assets/julia_tutorials/documenter_tools.png)
 
-Now use the [DocumenterTools.genkeys](https://juliadocs.github.io/Documenter.jl/stable/lib/public/#DocumenterTools.genkeys) command to generate your access keys:
+Now use the
+[DocumenterTools.genkeys](https://juliadocs.github.io/Documenter.jl/stable/lib/public/#DocumenterTools.genkeys)
+command to generate your access keys:
 
 ```julia
 DocumenterTools.genkeys(NewPackage)
 ```
 
-This will print out 2 keys with instructions with what to do with them. You'll need to copy one into "Deploy Keys" section of GitHub repository settings, and the other into "Secrets."
+This will print out 2 keys with instructions with what to do with them. You'll
+need to copy one into "Deploy Keys" section of GitHub repository settings, and
+the other into "Secrets."
 
 ### Step 15: Add Documentation Workflow
 Add the following file to your workflows:
@@ -442,13 +515,17 @@ jobs:
         run: julia --project=docs/ docs/make.jl
 ```
 ### Step 16: Setup Documentation directory
-With things set up with GitHub, we're now ready to start writing our documentation. We'll use the well-known [`Documenter.jl`](https://github.com/JuliaDocs/Documenter.jl). 
+With things set up with GitHub, we're now ready to start writing our
+documentation. We'll use the well-known
+[`Documenter.jl`](https://github.com/JuliaDocs/Documenter.jl). 
 
-First, create a new `docs/` directory in the repository root. Then, in your Julia REPL, activate the `docs/` folder and add `Documenter` as a dependency.
+First, create a new `docs/` directory in the repository root. Then, in your
+Julia REPL, activate the `docs/` folder and add `Documenter` as a dependency.
 
 **NOTE** You can activate the built-in shell mode of the Julia REPL using `;`.
 
-Lastly, create a `docs/src` directory to store all of the Markdown files for your documentation. Your directory structure should look like this:
+Lastly, create a `docs/src` directory to store all of the Markdown files for
+your documentation. Your directory structure should look like this:
 ```
 .github/workflows/
   CI.yml
@@ -473,7 +550,9 @@ README.md
 !["Add docs"](/assets/julia_tutorials/make_docs_folder.png)
 
 ### Step 17: Add the `make.jl` file
-The `docs/` folder should always contain a `make.jl` file, which provides the instructions to the documentation build step. A minimal example should look like this:
+The `docs/` folder should always contain a `make.jl` file, which provides the
+instructions to the documentation build step. A minimal example should look like
+this:
 
 ```julia
 using Documenter
@@ -493,13 +572,16 @@ deploydocs(
     devbranch = "main"
 )
 ```
-**NOTE**: If your branch is named `master` instead of `main`, you'll need to change that in the `deploydocs` command.
+**NOTE**: If your branch is named `master` instead of `main`, you'll need to
+*change that in the `deploydocs` command.
 
-The `pages` keyword argument sets up the structure of your documentation page. Each entry is a `"Title" => "sourc_file.md"` pair. You can also easily create a nested structure using
-`"Title" => ["SubTitle1" => "sub1.md", ...]`.
+The `pages` keyword argument sets up the structure of your documentation page.
+Each entry is a `"Title" => "sourc_file.md"` pair. You can also easily create a
+nested structure using `"Title" => ["SubTitle1" => "sub1.md", ...]`.
 
 ### Step 18: Add documentation sources
-Now we add the sources for our documentation as Markdown files underneath `docs/src`. We'll add some very basic files to get started:
+Now we add the sources for our documentation as Markdown files underneath
+`docs/src`. We'll add some very basic files to get started:
 
 `[docs/src/index.md]`
 ```
@@ -529,16 +611,29 @@ This package is part of a tutorial by Brian Jackson on setting up a new Julia pa
 ```
 **NOTE** Indentation is only to keep Markdown from messing up the nested Markdown code.
 
-See [Documenter.jl documentation](https://juliadocs.github.io/Documenter.jl/stable/) for more information on writing documentation for Julia.
+See [Documenter.jl
+documentation](https://juliadocs.github.io/Documenter.jl/stable/) for more
+information on writing documentation for Julia.
 
 ### Step 19: Build documentation locally
-You can run just the `makedocs` command from `docs/make.jl` to generate the files locally. Just open up `docs/build/index.md` after it completes to view the files in your browser.
+You can run just the `makedocs` command from `docs/make.jl` to generate the
+files locally. Just open up `docs/build/index.md` after it completes to view the
+files in your browser.
 
 ### Step 20: Deploy to GitHub Pages
-With all of the setup work we did previously, the only remaining step is to commit our changes and push to GitHub and let documentation workflow we set up run and auto-deploy to the local GitHub pages for our repository. Your site should deploy to https://<username>.github.io/<packagename>.jl/. You can check the status of your deploy under the "Pages" settings tab in GitHub.
+With all of the setup work we did previously, the only remaining step is to
+commit our changes and push to GitHub and let documentation workflow we set up
+run and auto-deploy to the local GitHub pages for our repository. Your site
+should deploy to https://<username>.github.io/<packagename>.jl/. You can check
+the status of your deploy under the "Pages" settings tab in GitHub.
 
 ### Step 21: Add your badges
-To show off your repo, it's usually a good idea to add badges to the top of your root README file. At a minimum, include badges for your build status, code coverage, and a link to your documentation. For CI build status, go to the "Actions" page on GitHub, click your CI workflow, and under the three dot menu on the right, select "Create status badge." It'll give you an option to copy the Markdown text to display your badge. Copy into the top of your Markdown file.
+To show off your repo, it's usually a good idea to add badges to the top of your
+root README file. At a minimum, include badges for your build status, code
+coverage, and a link to your documentation. For CI build status, go to the
+"Actions" page on GitHub, click your CI workflow, and under the three dot menu
+on the right, select "Create status badge." It'll give you an option to copy the
+Markdown text to display your badge. Copy into the top of your Markdown file.
 
 ![CI badge](/assets/julia_tutorials/ci_badge_copy.png)
 
@@ -552,4 +647,23 @@ For the documetation, copy the following into your README, replacing the link to
 [![](https://img.shields.io/badge/docs-stable-blue.svg)](http://bjack205.github.io/NewPackage.jl/dev)
 ```
 
+## Part V: Registering your Package
+
+### Step 22: Add Julia Registrator Bot to GitHub
+Add the JuliaRegistrator bot to GitHub by going to to 
+[this page](https://github.com/JuliaRegistries/Registrator.jl#install-registrator) and 
+clicking the "Install App" button and adding it to your repo.
+
+### Step 23: Check your `Project.toml` file and Submit a Request to the Julia Registry
+Before subitting your package to be registered, make sure:
+1. All of your dependencies have a valid `[compat]` entry
+2. Your package version is greater than or equal to `v0.1.0`
+3. Your CI tests are passing
+
+Once you're sure your package is ready, open a new GitHub Issue (usually titled 
+"Package registration" or something similar) and in the description field enter
+`@JuliaRegistrator register()`. You should see an automatic response from the 
+registrator bot, which will open a PR against the Julia Registry. Check the PR for updates
+and address issues that come up, either from the automatic checks or from the reviewer of 
+the PR.
 
