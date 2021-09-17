@@ -191,7 +191,7 @@ With our `test` directory set up, we now need to add our test-specific dependenc
 
 Add, at a minimum, the [Julia `Test` library](https://docs.julialang.org/en/v1/stdlib/Test/):
 
-!["Add Test"](/assets/julia_tutorials/add_test_library.png)
+!["Add Test"](/assets/julia_tutorials/add_test_package.png)
 
 Your directory structure should now look like:
 
@@ -294,6 +294,8 @@ jobs:
           CODECOV_TOKEN: ${{ secrets.CODECOV_TOKEN }}
       - uses: codecov/codecov-action@v2
 ```
+**NOTE**: If your branch is named `master` instead of `main`, you'll need to change that in the `on/push/branches` section. 
+
 Commit the file, and push to GitHub. Under the "Actions" tab in GitHub, you should see the CI action start. If you wait a few minutes, you should see your tests pass.
 
 ### Step 12: Add Code Coverage with CodeCov.io
@@ -353,7 +355,7 @@ name: format-check
 on:
   push:
     branches:
-      - 'master'
+      - 'main'
       - 'release-'
     tags: '*'
   pull_request:
@@ -391,6 +393,163 @@ jobs:
               exit(1)
           end'
 ```
+**NOTE**: If your branch is named `master` instead of `main`, you'll need to change that in the `on/push/branches` section. 
+
 The last one is very optional, but useful. You can use the associated [JuliaFormatter](https://github.com/domluna/JuliaFormatter.jl) package and [VSCode extension](https://marketplace.visualstudio.com/items?itemName=singularitti.vscode-julia-formatter) to automatically format your code.
+
+## Part IV: Adding Documentation
+### Step 14: Generate Access Keys
+To allow our code to automatically deploy to GitHub Pages, we need to add some access tokens. We can generate these tokens very easily using [`DocumenterTools.jl`](https://github.com/JuliaDocs/DocumenterTools.jl). Add this package to your default workspace (you can remove it afterwards, if you want), and also bring your package into the REPL with `using NewPackage`:
+
+!["Documenter_tools"](/assets/julia_tutorials/documenter_tools.png)
+
+Now use the [DocumenterTools.genkeys](https://juliadocs.github.io/Documenter.jl/stable/lib/public/#DocumenterTools.genkeys) command to generate your access keys:
+
+```julia
+DocumenterTools.genkeys(NewPackage)
+```
+
+This will print out 2 keys with instructions with what to do with them. You'll need to copy one into "Deploy Keys" section of GitHub repository settings, and the other into "Secrets."
+
+### Step 15: Add Documentation Workflow
+Add the following file to your workflows:
+```yaml
+# [.github/workflows/Documentation.yml]
+name: Documentation
+
+on:
+  push:
+    branches:
+      - main
+    tags: '*'
+  pull_request:
+
+jobs:
+  build:
+    runs-on: ubuntu-latest
+    steps:
+      - uses: actions/checkout@v2
+      - uses: julia-actions/setup-julia@latest
+      - uses: julia-actions/julia-buildpkg@v1
+        with:
+          version: '1.6'
+      - name: Install dependencies
+        run: julia --project=docs/ -e 'using Pkg; Pkg.develop(PackageSpec(path=pwd())); Pkg.instantiate()'
+      - name: Build and deploy
+        env:
+          GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }} # If authenticating with GitHub Actions token
+          DOCUMENTER_KEY: ${{ secrets.DOCUMENTER_KEY }} # If authenticating with SSH deploy key
+        run: julia --project=docs/ docs/make.jl
+```
+### Step 16: Setup Documentation directory
+With things set up with GitHub, we're now ready to start writing our documentation. We'll use the well-known [`Documenter.jl`](https://github.com/JuliaDocs/Documenter.jl). 
+
+First, create a new `docs/` directory in the repository root. Then, in your Julia REPL, activate the `docs/` folder and add `Documenter` as a dependency.
+
+**NOTE** You can activate the built-in shell mode of the Julia REPL using `;`.
+
+Lastly, create a `docs/src` directory to store all of the Markdown files for your documentation. Your directory structure should look like this:
+```
+.github/workflows/
+  CI.yml
+  ...
+docs/
+  src/
+  make.jl
+  Project.jl
+src/
+  NewPackage.jl
+  ...
+test/
+  runtests.jl
+  Project.toml
+  ...
+.gitignore
+LICENSE
+Project.toml
+README.md
+```
+
+!["Add docs"](/assets/julia_tutorials/make_docs_folder.png)
+
+### Step 17: Add the `make.jl` file
+The `docs/` folder should always contain a `make.jl` file, which provides the instructions to the documentation build step. A minimal example should look like this:
+
+```julia
+using Documenter
+using NewPackage
+
+makedocs(
+    sitename = "NewPackage.jl",
+    format = Documenter.HTML(prettyurls = false),
+    pages = [
+        "Introduction" => "index.md",
+        "API" => "api.md"
+    ]
+)
+
+deploydocs(
+    repo = "github.com/bjack205/NewPackage.jl.git",
+    devbranch = "main"
+)
+```
+**NOTE**: If your branch is named `master` instead of `main`, you'll need to change that in the `deploydocs` command.
+
+The `pages` keyword argument sets up the structure of your documentation page. Each entry is a `"Title" => "sourc_file.md"` pair. You can also easily create a nested structure using
+`"Title" => ["SubTitle1" => "sub1.md", ...]`.
+
+### Step 18: Add documentation sources
+Now we add the sources for our documentation as Markdown files underneath `docs/src`. We'll add some very basic files to get started:
+
+`[docs/src/index.md]`
+```
+# NewPackage.jl 
+
+## Overview
+This package is part of a tutorial by Brian Jackson on setting up a new Julia package.
+```
+
+`[docs/src/api.md]`
+```
+    ```@meta
+    CurrentModule = NewPackage 
+    ```
+
+    ```@contents
+    Pages = ["api.md"]
+    ```
+
+    # API
+    This page is a dump of all the docstrings found in the code. 
+
+    ```@autodocs
+    Modules = [NewPackage]
+    Order = [:module, :type, :function, :macro]
+    ```
+```
+**NOTE** Indentation is only to keep Markdown from messing up the nested Markdown code.
+
+See [Documenter.jl documentation](https://juliadocs.github.io/Documenter.jl/stable/) for more information on writing documentation for Julia.
+
+### Step 19: Build documentation locally
+You can run just the `makedocs` command from `docs/make.jl` to generate the files locally. Just open up `docs/build/index.md` after it completes to view the files in your browser.
+
+### Step 20: Deploy to GitHub Pages
+With all of the setup work we did previously, the only remaining step is to commit our changes and push to GitHub and let documentation workflow we set up run and auto-deploy to the local GitHub pages for our repository. Your site should deploy to https://<username>.github.io/<packagename>.jl/. You can check the status of your deploy under the "Pages" settings tab in GitHub.
+
+### Step 21: Add your badges
+To show off your repo, it's usually a good idea to add badges to the top of your root README file. At a minimum, include badges for your build status, code coverage, and a link to your documentation. For CI build status, go to the "Actions" page on GitHub, click your CI workflow, and under the three dot menu on the right, select "Create status badge." It'll give you an option to copy the Markdown text to display your badge. Copy into the top of your Markdown file.
+
+![CI badge](/assets/julia_tutorials/ci_badge_copy.png)
+
+For code coverage, go to your repo in codecov.io. You can copy the Markdown code under "Settings" / "Badge":
+
+![codecov badge](/assets/julia_tutorials/codecov_badge.png)
+
+For the documetation, copy the following into your README, replacing the link to your documentation:
+
+```markdown
+[![](https://img.shields.io/badge/docs-stable-blue.svg)](http://bjack205.github.io/NewPackage.jl/dev)
+```
 
 
