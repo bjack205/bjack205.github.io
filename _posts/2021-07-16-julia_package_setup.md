@@ -18,9 +18,46 @@ these steps and adapt them to the tooling of your choice.
 For the duration of this tutorial we'll be working with a hypothetical new
 package called `NewPackage.jl`.
 
-## Part I: Setting up a New Repository
+## Summary
+I. [Setting up a New Repository](#PartI)
+  1. [Create a new temporary repo on your computer](#Step1)
+  2. [Create a new GitHub repository](#Step2)
+  3. [Add a `.gitignore` file](#Step3)
+  4. [Add a `LICENSE` file](#Step4)
+  5. [Add the repo to your local `dev` folder](#Step5)
 
-### Step 1: Create a new temporary repo on your computer
+II. [Develop your repo](#PartII)
+  6. [Setup VSCode for Julia](#Step6)
+  7. [Add package dependencies](#Step7)
+      - [`using` vs `import`](#usingvimport)
+  8. [Set up test suite](#Step8)
+  9. [Add test-specific dependencies](#Step9)
+  10. [Add some code and a unit test](#Step10)
+
+III. [Adding CI](#PartIII)
+  11. [Add the CI GitHub Action](#Step11)
+  12. [Add Code Coverage with CodeCov.io](#Step12)
+  13. [Add other workflows](#Step13)
+
+IV. [Adding Documentation](#PartIV)
+  14. [Generate Access Keys](#Step14)
+  15. [Add Documentation Workflow](#Step15)
+  16. [Setup Documentation directory](#Step16)
+  17. [Add the `make.jl` file](#Step17)
+  18. [Add documentation sources](#Step18)
+  19. [Build documentation locally](#Step19)
+  20. [Deploy to GitHub Pages](#Step20)
+  21. [Add your badges](#Step21)
+
+V. [Registering your Package](#PartV)
+  22. [Add Julia Registrator Bot to GitHub](#Step22)
+  23. [Register your Package](#Step23)
+
+
+## Part I: Setting up a New Repository <a name="PartI"></a>
+
+### Step 1: Create a new temporary repo on your computer <a name="Step1"></a>
+
 In your terminal, go to a convenient location where you can create a temporary
 local directory. Open a Julia REPL, enter the package manager using `]`, and
 enter `generate NewPackage`:
@@ -35,7 +72,8 @@ src/
 Project.toml
 ```
 
-### Step 2: Create a new GitHub repository
+
+### Step 2: Create a new GitHub repository <a name="Step2"></a>
 In GitHub, create a new repository named "NewPackage.jl" (note the trailing .jl
 extension). Be sure to create an EMPTY repo (don't initialize it with a
 `README.md`, `.gitignore`, or license file). You should get a screen that looks
@@ -54,7 +92,7 @@ git remote add origin https://github.com/bjack205/NewPackage.jl.git
 git push -u origin main
 ```
 
-### Step 3: Add a `.gitignore` file 
+### Step 3: Add a `.gitignore` file <a name="Step3"></a>
 In GitHub, add a file using "Add File | Create New File", located on the main page:
 
 !["Add new GitHub file"](/assets/julia_tutorials/github_new_file.png)
@@ -94,7 +132,7 @@ Manifest.toml
 After editing, commit the file, either directly to the main branch or via a PR
 (which you should keep open for the next step).
 
-### Step 4: Add a `LICENCE` file
+### Step 4: Add a `LICENCE` file <a name="Step4"></a>
 Again using GitHub, add a new file named `LICENSE` and use the license template
 selector that appears to pick a license. The MIT License is a good default.
 
@@ -102,7 +140,7 @@ Commit the file directly to the main branch, or to the new branch you created
 for your pull request in the previous step. Then merge your PR (possibly with a
 squash merge) to add both files.
 
-### Step 5: Add the repo to your local `dev` folder
+### Step 5: Add the repo to your local `dev` folder <a name="Step5"></a>
 Back in your Julia REPL, still in the package manager, add your new package to
 your `~/.julia/dev` folder using the `dev` command in the package manager:
 
@@ -121,9 +159,9 @@ approach is that it hard-codes a local path into your Manifest file which makes
 it non-portable to other users. If you only ever do this for you top-level
 (default) Julia environment, this is probably fine.
 
-## Part II: Develop your repo
+## Part II: Develop your repo <a name="PartII"></a>
 
-### Step 6: Setup VSCode for Julia
+### Step 6: Setup VSCode for Julia <a name="Step6"></a>
 Assuming you've installed VSCode, launch VSCode and open the directory
 containing your new package. Add the [Julia VSCode
 Extension](https://marketplace.visualstudio.com/items?itemName=julialang.language-julia).
@@ -133,7 +171,7 @@ easy scripting:
 "julia.execution.resultType": "inline"
 ```
 
-### Step 7: Add package dependencies
+### Step 7: Add package dependencies <a name="Step7"></a>
 To add Julia dependencies to your project, launch the internal VSCode REPL
 (using the `Julia: Start REPL` command from the command palette), and activate
 the package environment using `activate .` in the package manager:
@@ -147,7 +185,8 @@ your `Project.toml` and `Manifest.toml` files. Let's add the
 
 !["Add Static Arrays"](/assets/julia_tutorials/add_static_arrays.png)
 
-You can see we added version `v1.2.12`. We'll add this to our `compat` section in our `Project.toml` file:
+You can see we added version `v1.2.12`. We'll add this to our `compat` section
+in our `Project.toml` file:
 ```toml
 # [Project.toml]
 name = "NewPackage"
@@ -173,7 +212,7 @@ greet() = print("Hello World!")
 end # module
 ```
 
-#### `using` vs `import`
+#### `using` vs `import` <a name="usingvimport"></a>
 When incorporating external projects, you have the option of either `using` or `import`, e.g.
 ```julia
 using StaticArrays
@@ -208,7 +247,7 @@ or, as of Julia v1.6, you can do this directly in the `import` command:
 import StaticArrays as SA
 ```
 
-### Step 8: Set up test suite 
+### Step 8: Set up test suite <a name="Step8"></a>
 Add a new top-level `test` folder to your repo and add a `runtests.jl` file
 inside. This is the launch point for your test suite and should be included in
 every Julia package / application that uses a test suite.
@@ -227,7 +266,7 @@ include(...)
 where the last part simply includes test suites defined in other files within
 the `test` folder. We'll addone after the next section.
 
-### Step 9: Add test-specific dependencies
+### Step 9: Add test-specific dependencies <a name="Step9"></a>
 With our `test` directory set up, we now need to add our test-specific
 dependencies, importantly including the `Test` standard library. Again the in
 REPL package manager, activate the test folder using `activate test`:
@@ -250,7 +289,7 @@ test/
 Project.toml
 README.md
 ```
-### Step 10: Add some code and a unit test
+### Step 10: Add some code and a unit test <a name="Step10"></a>
 We'll now add some code to our package and check functionality with a unit test. 
 
 Add a `foo.jl` file in the `src` directory:
@@ -301,9 +340,9 @@ NewPackage`. It's usually best to run this command from the default environment
 
 If your tests pass, commit your changes to git before continuing.
 
-## Part III: Adding CI
+## Part III: Adding CI <a name="PartIII"></a>
 
-### Step 11: Add the CI GitHub Action
+### Step 11: Add the CI GitHub Action <a name="Step11"></a>
 To enable CI, add the following script to `.github/workflows/`:
 ```yaml
 # [.github/workflows/CI.yml]
@@ -347,7 +386,7 @@ Commit the file, and push to GitHub. Under the "Actions" tab in GitHub, you
 should see the CI action start. If you wait a few minutes, you should see your
 tests pass.
 
-### Step 12: Add Code Coverage with CodeCov.io
+### Step 12: Add Code Coverage with CodeCov.io <a name="Step12"></a>
 It's usually a good idea to get a feel for how much of your code is being
 covered by your test suite. We can get the reports automatically from our CI we
 set up in the previous step using [codecov.io](https://about.codecov.io/). If
@@ -364,7 +403,7 @@ After a successful CI run, your coverage results should be automatically
 uploaded to codecov.io where you can view the report. This app will
 automatically run checks on each PR and commit to the main branch.
 
-### Step 13: Add Other Workflows
+### Step 13: Add Other Workflows <a name="Step13"></a>
 The following workflow files are also useful:
 
 Create a PR when one of your package dependencies releases a new version.
@@ -462,8 +501,8 @@ The last one is very optional, but useful. You can use the associated
 extension](https://marketplace.visualstudio.com/items?itemName=singularitti.vscode-julia-formatter)
 to automatically format your code.
 
-## Part IV: Adding Documentation
-### Step 14: Generate Access Keys
+## Part IV: Adding Documentation <a name="PartIV"></a>
+### Step 14: Generate Access Keys <a name="Step14"></a>
 To allow our code to automatically deploy to GitHub Pages, we need to add some
 access tokens. We can generate these tokens very easily using
 [`DocumenterTools.jl`](https://github.com/JuliaDocs/DocumenterTools.jl). Add
@@ -484,7 +523,7 @@ This will print out 2 keys with instructions with what to do with them. You'll
 need to copy one into "Deploy Keys" section of GitHub repository settings, and
 the other into "Secrets."
 
-### Step 15: Add Documentation Workflow
+### Step 15: Add Documentation Workflow <a name="Step15"></a>
 Add the following file to your workflows:
 ```yaml
 # [.github/workflows/Documentation.yml]
@@ -514,7 +553,7 @@ jobs:
           DOCUMENTER_KEY: ${{ secrets.DOCUMENTER_KEY }} # If authenticating with SSH deploy key
         run: julia --project=docs/ docs/make.jl
 ```
-### Step 16: Setup Documentation directory
+### Step 16: Setup Documentation directory <a name="Step16"></a>
 With things set up with GitHub, we're now ready to start writing our
 documentation. We'll use the well-known
 [`Documenter.jl`](https://github.com/JuliaDocs/Documenter.jl). 
@@ -549,7 +588,7 @@ README.md
 
 !["Add docs"](/assets/julia_tutorials/make_docs_folder.png)
 
-### Step 17: Add the `make.jl` file
+### Step 17: Add the `make.jl` file <a name="Step17"></a>
 The `docs/` folder should always contain a `make.jl` file, which provides the
 instructions to the documentation build step. A minimal example should look like
 this:
@@ -579,7 +618,7 @@ The `pages` keyword argument sets up the structure of your documentation page.
 Each entry is a `"Title" => "sourc_file.md"` pair. You can also easily create a
 nested structure using `"Title" => ["SubTitle1" => "sub1.md", ...]`.
 
-### Step 18: Add documentation sources
+### Step 18: Add documentation sources <a name="Step18"></a>
 Now we add the sources for our documentation as Markdown files underneath
 `docs/src`. We'll add some very basic files to get started:
 
@@ -615,19 +654,19 @@ See [Documenter.jl
 documentation](https://juliadocs.github.io/Documenter.jl/stable/) for more
 information on writing documentation for Julia.
 
-### Step 19: Build documentation locally
+### Step 19: Build documentation locally <a name="Step19"></a>
 You can run just the `makedocs` command from `docs/make.jl` to generate the
 files locally. Just open up `docs/build/index.md` after it completes to view the
 files in your browser.
 
-### Step 20: Deploy to GitHub Pages
+### Step 20: Deploy to GitHub Pages <a name="Step20"></a>
 With all of the setup work we did previously, the only remaining step is to
 commit our changes and push to GitHub and let documentation workflow we set up
 run and auto-deploy to the local GitHub pages for our repository. Your site
 should deploy to https://<username>.github.io/<packagename>.jl/. You can check
 the status of your deploy under the "Pages" settings tab in GitHub.
 
-### Step 21: Add your badges
+### Step 21: Add your badges <a name="Step21"></a>
 To show off your repo, it's usually a good idea to add badges to the top of your
 root README file. At a minimum, include badges for your build status, code
 coverage, and a link to your documentation. For CI build status, go to the
@@ -647,14 +686,14 @@ For the documetation, copy the following into your README, replacing the link to
 [![](https://img.shields.io/badge/docs-stable-blue.svg)](http://bjack205.github.io/NewPackage.jl/dev)
 ```
 
-## Part V: Registering your Package
+## Part V: Registering your Package <a name="PartV"></a>
 
-### Step 22: Add Julia Registrator Bot to GitHub
+### Step 22: Add Julia Registrator Bot to GitHub <a name="Step22"></a>
 Add the JuliaRegistrator bot to GitHub by going to to 
 [this page](https://github.com/JuliaRegistries/Registrator.jl#install-registrator) and 
 clicking the "Install App" button and adding it to your repo.
 
-### Step 23: Check your `Project.toml` file and Submit a Request to the Julia Registry
+### Step 23: Check your `Project.toml` file and Submit a Request to the Julia Registry <a name="Step23"></a>
 Before subitting your package to be registered, make sure:
 1. All of your dependencies have a valid `[compat]` entry
 2. Your package version is greater than or equal to `v0.1.0`
