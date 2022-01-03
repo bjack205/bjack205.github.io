@@ -350,7 +350,7 @@ name: CI
 on:
   push:
     branches:
-      - main 
+      - master
     tags: '*'
   pull_request:
 jobs:
@@ -368,17 +368,15 @@ jobs:
         arch:
           - x64
     steps:
-      - uses: actions/checkout@v2
+      - uses: actions/checkout@v1
       - uses: julia-actions/setup-julia@latest
         with:
           version: ${{ matrix.version }}
           arch: ${{ matrix.arch }}
-      - uses: julia-actions/julia-buildpkg@v1
       - uses: julia-actions/julia-runtest@latest
       - uses: julia-actions/julia-uploadcodecov@latest
         env:
           CODECOV_TOKEN: ${{ secrets.CODECOV_TOKEN }}
-      - uses: codecov/codecov-action@v2
 ```
 **NOTE**: If your branch is named `master` instead of `main`, you'll need to change that in the `on/push/branches` section. 
 
