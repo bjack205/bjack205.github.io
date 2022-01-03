@@ -344,6 +344,7 @@ If your tests pass, commit your changes to git before continuing.
 
 ### Step 11: Add the CI GitHub Action <a name="Step11"></a>
 To enable CI, add the following script to `.github/workflows/`:
+{% raw %}
 ```yaml
 # [.github/workflows/CI.yml]
 name: CI
@@ -378,6 +379,7 @@ jobs:
         env:
           CODECOV_TOKEN: ${{ secrets.CODECOV_TOKEN }}
 ```
+{% endraw %}
 **NOTE**: If your branch is named `master` instead of `main`, you'll need to change that in the `on/push/branches` section. 
 
 Commit the file, and push to GitHub. Under the "Actions" tab in GitHub, you
