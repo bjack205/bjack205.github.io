@@ -525,6 +525,7 @@ the other into "Secrets."
 
 ### Step 15: Add Documentation Workflow <a name="Step15"></a>
 Add the following file to your workflows:
+{% raw %}
 ```yaml
 # [.github/workflows/Documentation.yml]
 name: Documentation
@@ -553,6 +554,7 @@ jobs:
           DOCUMENTER_KEY: ${{ secrets.DOCUMENTER_KEY }} # If authenticating with SSH deploy key
         run: julia --project=docs/ docs/make.jl
 ```
+{% endraw %}
 ### Step 16: Setup Documentation directory <a name="Step16"></a>
 With things set up with GitHub, we're now ready to start writing our
 documentation. We'll use the well-known
