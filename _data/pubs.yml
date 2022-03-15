@@ -1,3 +1,21 @@
+- title: "Robust Quantum Optimal Control with Trajectory Optimization"
+  authors: [Thomas Propson, brian, Jens Koch, zac, David I. Schuster]
+  date: 2022-01-01
+  pub-type: article
+  publisher: Physical Review Applied
+  pdf: robust_quantum.pdf
+  projects: [trajopt]
+
+- title: "A Parallel Linear System Solver for Optimal Control"
+  authors: [brian, zac]
+  date: 2022-11-01
+  pub-type: conference
+  publisher: International Conference on Intelligent Robots and Systems
+  abbrv: IROS
+  pdf: rslqr.pdf
+  status: Submitted
+  projects: [trajopt]
+
 - title: "ALTRO-C: A Fast Solver for Conic Model-Predictive Control"
   authors: [brian, tarun, Daniel Neamati, kevin, Rianna Jitosho, zac]
   date: 2021-05-30
@@ -6,9 +24,8 @@
   abbrv: ICRA 
   pdf: ALTRO_MPC.pdf
   projects: [trajopt]
-  status: Submitted
 
-- title: Planning and Control with Attitude
+- title: Planning With Attitude 
   authors: [brian, kevin, zac]
   date: 2021-05-30
   pub-type: conference
@@ -16,7 +33,6 @@
   abbrv: ICRA 
   pdf: planning_with_attitude.pdf
   projects: [trajopt]
-  status: Submitted
   
 - title: Scalable Cooperative Transport of Cable-Suspended Loads with UAV's using Distributed Trajectory Optimization
   authors: [brian, taylor, Kunal Shah, Mac Schwager, zac]
